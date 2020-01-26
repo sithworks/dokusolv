@@ -7,12 +7,14 @@ import (
 
 const DIMENSION = 9
 
-type board struct {
+type Board struct {
 	Cells [][]int
 }
 
-func Make() *board {
-	var b board
+type SudokuSolverFn func(*Board) *Board
+
+func Make() *Board {
+	var b Board
 	b.Cells = make([][]int, DIMENSION)
 	for i := range b.Cells {
 		b.Cells[i] = make([]int, DIMENSION)
@@ -20,7 +22,7 @@ func Make() *board {
 	return &b
 }
 
-func (b *board) String() string {
+func (b *Board) String() string {
 	var builder strings.Builder
 
 	for x := 0; x < DIMENSION; x++ {
@@ -33,6 +35,6 @@ func (b *board) String() string {
 
 }
 
-func Solve(sudoku [][]int) [][]int {
+func Solve(sudoku *Board) *Board {
 	return sudoku
 }
