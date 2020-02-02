@@ -28,10 +28,10 @@ func getBoardFromString(data string) *solver.Board {
 	j := -1
 	b := solver.Make()
 	for i := 0; i < len(data); i++ {
-		if i % 9 == 0 {
+		if i % solver.DIMENSION == 0 {
 			j++
 		}
-		b.Cells[i % 9][j], _ = strconv.Atoi(data[i:i+1])
+		b.Cells[i % solver.DIMENSION][j], _ = strconv.Atoi(data[i:i+1])
 	}
 
 	return b
@@ -47,6 +47,7 @@ func testAlgorithm(t *testing.T, fn solver.SudokuSolverFn) {
 		t.Errorf("Unable to open test file: %s", filename)
 		return
 	}
+	defer f.Close()
 
 	cf := csv.NewReader(f)
 
@@ -66,8 +67,6 @@ func testAlgorithm(t *testing.T, fn solver.SudokuSolverFn) {
 		b := getBoardFromString(record[0])
 		fn(b)
 	}
-
-	defer f.Close()
 }
 
 func TestBasicAlgorithm(t *testing.T) {

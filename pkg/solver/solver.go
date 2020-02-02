@@ -1,6 +1,7 @@
 package solver
 
 import (
+	"errors"
 	"fmt"
 	"strings"
 )
@@ -34,6 +35,14 @@ func (b *Board) String() string {
 	return builder.String()
 
 }
+
+func(b *Board) Get(x, y int) (val int, err error) {
+	if !(x >= 0 && x < DIMENSION && y >= 0 && y < DIMENSION) {
+		return 0, errors.New("Index out of bounds")
+	}
+	return b.Cells[x][y], nil
+}
+
 
 func Solve(sudoku *Board) *Board {
 	return sudoku
